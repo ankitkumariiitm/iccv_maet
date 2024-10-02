@@ -50,7 +50,7 @@ class BiCornerPool(nn.Module):
 
         self.direction1_pool = CornerPool(directions[0])
         self.direction2_pool = CornerPool(directions[1])
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def forward(self, x):
         """Forward features from the upstream network.

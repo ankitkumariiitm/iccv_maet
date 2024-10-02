@@ -156,7 +156,7 @@ class VFNetHead(ATSSHead, FCOSHead):
         """Initialize layers of the head."""
         super(FCOSHead, self)._init_cls_convs()
         super(FCOSHead, self)._init_reg_convs()
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.vfnet_reg_conv = ConvModule(
             self.feat_channels,
             self.feat_channels,

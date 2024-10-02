@@ -41,7 +41,7 @@ class FeatureAdaption(nn.Module):
             kernel_size=kernel_size,
             padding=(kernel_size - 1) // 2,
             deform_groups=deform_groups)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def init_weights(self):
         normal_init(self.conv_offset, std=0.1)
@@ -193,7 +193,7 @@ class GuidedAnchorHead(AnchorHead):
         self._init_layers()
 
     def _init_layers(self):
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.conv_loc = nn.Conv2d(self.in_channels, 1, 1)
         self.conv_shape = nn.Conv2d(self.in_channels, self.num_anchors * 2, 1)
         self.feature_adaption = FeatureAdaption(

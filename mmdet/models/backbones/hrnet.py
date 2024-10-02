@@ -40,7 +40,7 @@ class HRModule(nn.Module):
         self.branches = self._make_branches(num_branches, blocks, num_blocks,
                                             num_channels)
         self.fuse_layers = self._make_fuse_layers()
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.LeakyReLU(inplace=False)
 
     def _check_branches(self, num_branches, num_blocks, in_channels,
                         num_channels):
@@ -168,7 +168,7 @@ class HRModule(nn.Module):
                                         bias=False),
                                     build_norm_layer(self.norm_cfg,
                                                      in_channels[j])[1],
-                                    nn.ReLU(inplace=False)))
+                                    nn.LeakyReLU(inplace=False)))
                     fuse_layer.append(nn.Sequential(*conv_downsamples))
             fuse_layers.append(nn.ModuleList(fuse_layer))
 
@@ -296,7 +296,7 @@ class HRNet(nn.Module):
             bias=False)
 
         self.add_module(self.norm2_name, norm2)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
         # stage 1
         self.stage1_cfg = self.extra['stage1']
@@ -375,7 +375,7 @@ class HRNet(nn.Module):
                                 bias=False),
                             build_norm_layer(self.norm_cfg,
                                              num_channels_cur_layer[i])[1],
-                            nn.ReLU(inplace=True)))
+                            nn.LeakyReLU(inplace=True)))
                 else:
                     transition_layers.append(None)
             else:
@@ -395,7 +395,7 @@ class HRNet(nn.Module):
                                 padding=1,
                                 bias=False),
                             build_norm_layer(self.norm_cfg, out_channels)[1],
-                            nn.ReLU(inplace=True)))
+                            nn.LeakyReLU(inplace=True)))
                 transition_layers.append(nn.Sequential(*conv_downsamples))
 
         return nn.ModuleList(transition_layers)

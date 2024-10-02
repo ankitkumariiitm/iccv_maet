@@ -73,7 +73,7 @@ class ConvFCBBoxHead(BBoxHead):
             if self.num_reg_fcs == 0:
                 self.reg_last_dim *= self.roi_feat_area
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         # reconstruct fc_cls and fc_reg since input channels are changed
         if self.with_cls:
             self.fc_cls = nn.Linear(self.cls_last_dim, self.num_classes + 1)

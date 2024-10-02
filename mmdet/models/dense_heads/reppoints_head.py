@@ -106,7 +106,7 @@ class RepPointsHead(AnchorFreeHead):
 
     def _init_layers(self):
         """Initialize layers of the head."""
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.cls_convs = nn.ModuleList()
         self.reg_convs = nn.ModuleList()
         for i in range(self.stacked_convs):

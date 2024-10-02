@@ -56,7 +56,7 @@ class FPN_CARAFE(nn.Module):
         self.with_bias = norm_cfg is None
         self.upsample_cfg = upsample_cfg.copy()
         self.upsample = self.upsample_cfg.get('type')
-        self.relu = nn.ReLU(inplace=False)
+        self.relu = nn.LeakyReLU(inplace=False)
 
         self.order = order
         assert order in [('conv', 'norm', 'act'), ('act', 'conv', 'norm')]

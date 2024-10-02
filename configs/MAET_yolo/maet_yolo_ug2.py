@@ -1,5 +1,5 @@
 _base_ = '../_base_/default_runtime.py'
-load_from = '/home/czt/mmdetection_v1/work_dirs/maet_yolo_coco_ort/latest.pth'
+load_from = 'models/epoch_273.pth'
 # model settings
 model = dict(
     type='YOLOV3',
@@ -53,7 +53,7 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = 'UG2FaceDataset'
-data_root = '/home/czt/DataSets/Dark_face_2019/'
+data_root = 'data/Dark_face_2019/'
 img_norm_cfg = dict(mean=[0, 0, 0], std=[255., 255., 255.], to_rgb=True)
 train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True),

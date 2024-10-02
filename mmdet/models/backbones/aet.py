@@ -19,7 +19,7 @@ class BasicBlock(nn.Module):
         self.layers.add_module('Conv', nn.Conv2d(in_planes, out_planes,
             kernel_size=kernel_size, stride=stride, padding=padding, bias=False))
         self.layers.add_module('BatchNorm', nn.BatchNorm2d(out_planes))
-        self.layers.add_module('ReLU',      nn.ReLU(inplace=True))
+        self.layers.add_module('ReLU',      nn.LeakyReLU(inplace=True))
 
     def forward(self, x):
         return self.layers(x)
@@ -49,11 +49,11 @@ class AETnet(nn.Module):
         self.encoder = nn.Sequential(ConvModule(in_channel, feature1, 3, 2, 1, **cfg),
                                      ConvModule(feature1, feature2, 3, 2, 1, **cfg),
                                      ConvModule(feature2, feature2, 3, 2, 1, **cfg))
-        self.decoder_reg = nn.Sequential(nn.Linear(feature2*2, feature2), nn.BatchNorm1d(feature2), nn.ReLU(),
-                                         nn.Linear(feature2, feature2//2), nn.BatchNorm1d(feature2//2), nn.ReLU(),
+        self.decoder_reg = nn.Sequential(nn.Linear(feature2*2, feature2), nn.BatchNorm1d(feature2), nn.LeakyReLU(),
+                                         nn.Linear(feature2, feature2//2), nn.BatchNorm1d(feature2//2), nn.LeakyReLU(),
                                          nn.Linear(feature2//2, reg_shape))
-        self.decoder_cls = nn.Sequential(nn.Linear(feature2*2, feature2), nn.BatchNorm1d(feature2), nn.ReLU(),
-                                         nn.Linear(feature2, feature2//2), nn.BatchNorm1d(feature2//2), nn.ReLU(),
+        self.decoder_cls = nn.Sequential(nn.Linear(feature2*2, feature2), nn.BatchNorm1d(feature2), nn.LeakyReLU(),
+                                         nn.Linear(feature2, feature2//2), nn.BatchNorm1d(feature2//2), nn.LeakyReLU(),
                                          nn.Linear(feature2//2, cls_type))
     
     
@@ -109,8 +109,8 @@ class AETdecoder_Reg(nn.Module):
         super(AETdecoder_Reg, self).__init__()
 
 
-        # self.decoder_reg = nn.Sequential(Linear(feature * 2, feature), nn.BatchNorm1d(feature), nn.ReLU(),
-        #                                  Linear(feature, feature // 2), nn.BatchNorm1d(feature // 2), nn.ReLU(),
+        # self.decoder_reg = nn.Sequential(Linear(feature * 2, feature), nn.BatchNorm1d(feature), nn.LeakyReLU(),
+        #                                  Linear(feature, feature // 2), nn.BatchNorm1d(feature // 2), nn.LeakyReLU(),
         #                                  Linear(feature // 2, reg_shape))
         num_inchannels = 64
         nChannels = 96
@@ -206,8 +206,8 @@ class AETdecoder_dark(nn.Module):
         # with_cls: do classification task or not
         super(AETdecoder_dark, self).__init__()
 
-        # self.decoder_reg = nn.Sequential(Linear(feature * 2, feature), nn.BatchNorm1d(feature), nn.ReLU(),
-        #                                  Linear(feature, feature // 2), nn.BatchNorm1d(feature // 2), nn.ReLU(),
+        # self.decoder_reg = nn.Sequential(Linear(feature * 2, feature), nn.BatchNorm1d(feature), nn.LeakyReLU(),
+        #                                  Linear(feature, feature // 2), nn.BatchNorm1d(feature // 2), nn.LeakyReLU(),
         #                                  Linear(feature // 2, reg_shape))
         num_inchannels = 1024
         nChannels1 = 256

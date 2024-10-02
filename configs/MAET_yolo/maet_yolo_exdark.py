@@ -1,5 +1,5 @@
 _base_ = '../_base_/default_runtime.py'
-load_from = '/home/czt/mmdetection_v1/work_dirs/maet_yolo_coco_ort/latest.pth'
+load_from = 'models/epoch_273.pth'
 # model settings
 model = dict(
     type='YOLOV3',
@@ -124,3 +124,4 @@ lr_config = dict(
 # runtime settings
 total_epochs = 24
 evaluation = dict(interval=1, metric=['mAP'])
+

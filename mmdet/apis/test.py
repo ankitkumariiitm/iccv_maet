@@ -16,7 +16,7 @@ from mmdet.core import encode_mask_results
 def single_gpu_test(model,
                     data_loader,
                     show=False,
-                    out_dir=r'/home/czt/mmdetection/save/Final',
+                    out_dir=r'/home/abv/Desktop/varun/ICCV_MAET/output_training',
                     show_score_thr=0.3):
     model.eval()
     #print(model.module.sr_bone)

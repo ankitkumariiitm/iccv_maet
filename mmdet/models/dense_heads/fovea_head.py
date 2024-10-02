@@ -27,7 +27,7 @@ class FeatureAlign(nn.Module):
             kernel_size=kernel_size,
             padding=(kernel_size - 1) // 2,
             deform_groups=deform_groups)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def init_weights(self):
         normal_init(self.conv_offset, std=0.1)

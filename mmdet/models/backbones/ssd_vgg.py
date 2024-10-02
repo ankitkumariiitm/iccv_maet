@@ -59,11 +59,11 @@ class SSDVGG(VGG):
             str(len(self.features)),
             nn.Conv2d(512, 1024, kernel_size=3, padding=6, dilation=6))
         self.features.add_module(
-            str(len(self.features)), nn.ReLU(inplace=True))
+            str(len(self.features)), nn.LeakyReLU(inplace=True))
         self.features.add_module(
             str(len(self.features)), nn.Conv2d(1024, 1024, kernel_size=1))
         self.features.add_module(
-            str(len(self.features)), nn.ReLU(inplace=True))
+            str(len(self.features)), nn.LeakyReLU(inplace=True))
         self.out_feature_indices = out_feature_indices
 
         self.inplanes = 1024

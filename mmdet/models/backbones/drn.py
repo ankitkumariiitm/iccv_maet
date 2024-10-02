@@ -42,7 +42,7 @@ class Upsampler(nn.Sequential):
                 if bn: m.append(nn.BatchNorm2d(n_feats))
 
                 if act == 'relu':
-                    m.append(nn.ReLU(True))
+                    m.append(nn.LeakyReLU(True))
                 elif act == 'prelu':
                     m.append(nn.PReLU(n_feats))
 
@@ -52,7 +52,7 @@ class Upsampler(nn.Sequential):
             if bn: m.append(nn.BatchNorm2d(n_feats))
 
             if act == 'relu':
-                m.append(nn.ReLU(True))
+                m.append(nn.LeakyReLU(True))
             elif act == 'prelu':
                 m.append(nn.PReLU(n_feats))
         else:
@@ -102,7 +102,7 @@ class CALayer(nn.Module):
         # feature channel downscale and upscale --> channel weight
         self.conv_du = nn.Sequential(
                 nn.Conv2d(channel, channel // reduction, 1, padding=0, bias=True),
-                nn.ReLU(inplace=True),
+                nn.LeakyReLU(inplace=True),
                 nn.Conv2d(channel // reduction, channel, 1, padding=0, bias=True),
                 nn.Sigmoid()
         )
@@ -114,7 +114,7 @@ class CALayer(nn.Module):
 
 ## Residual Channel Attention Block (RCAB)
 class RCAB(nn.Module):
-    def __init__(self, conv, n_feat, kernel_size, reduction=16, bias=True, bn=False, act=nn.ReLU(True), res_scale=1):
+    def __init__(self, conv, n_feat, kernel_size, reduction=16, bias=True, bn=False, act=nn.LeakyReLU(True), res_scale=1):
         super(RCAB, self).__init__()
         modules_body = []
         for i in range(2):
@@ -130,7 +130,7 @@ class RCAB(nn.Module):
         res += x
         return res
 
-# print(RCAB(conv2d, 16 * pow(2, 2), 3, act=nn.ReLU(True)))
+# print(RCAB(conv2d, 16 * pow(2, 2), 3, act=nn.LeakyReLU(True)))
 ######################################################################################
 ###### The SR structure in our work, the code are inspired from DRN (cvpr 2020) ######
 ######################################################################################
@@ -143,7 +143,7 @@ class DRN(nn.Module):
         n_feats = 16
         kernel_size = 3
 
-        act = nn.ReLU(True)
+        act = nn.LeakyReLU(True)
         #act = False
 
         # self.upsample = nn.Upsample(scale_factor=max(self.scale),

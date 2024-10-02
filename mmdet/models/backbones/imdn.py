@@ -61,7 +61,7 @@ def conv_block(in_nc, out_nc, kernel_size, stride=1, dilation=1, groups=1, bias=
 def activation(act_type, inplace=True, neg_slope=0.05, n_prelu=1):
     act_type = act_type.lower()
     if act_type == 'relu':
-        layer = nn.ReLU(inplace)
+        layer = nn.LeakyReLU(inplace)
     elif act_type == 'lrelu':
         layer = nn.LeakyReLU(neg_slope, inplace)
     elif act_type == 'prelu':
@@ -114,7 +114,7 @@ class CCALayer(nn.Module):
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
         self.conv_du = nn.Sequential(
             nn.Conv2d(channel, channel // reduction, 1, padding=0, bias=True),
-            nn.ReLU(inplace=True),
+            nn.LeakyReLU(inplace=True),
             nn.Conv2d(channel // reduction, channel, 1, padding=0, bias=True),
             nn.Sigmoid()
         )
@@ -418,7 +418,7 @@ class IMDN_RTE(nn.Module):
         super(IMDN_RTE, self).__init__()
         self.upscale = upscale
         self.fea_conv = nn.Sequential(conv_layer(in_nc, nf, 3),
-                                      nn.ReLU(inplace=True),
+                                      nn.LeakyReLU(inplace=True),
                                       conv_layer(nf, nf, 3, stride=2, bias=False))
 
         self.block1 = IMDModule_Large(nf)

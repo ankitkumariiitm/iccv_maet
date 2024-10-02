@@ -159,7 +159,7 @@ class HourglassNet(nn.Module):
             for _ in range(num_stacks - 1)
         ])
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def init_weights(self, pretrained=None):
         """Init module weights.

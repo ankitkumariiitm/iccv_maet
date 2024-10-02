@@ -166,7 +166,7 @@ class SABLHead(nn.Module):
         self.reg_conv_att_y = nn.Conv2d(reg_in_channels, 1, 1)
 
         self.fc_cls = nn.Linear(self.cls_out_channels, self.num_classes + 1)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
         self.reg_cls_fcs = self._add_fc_branch(self.num_reg_fcs,
                                                self.reg_in_channels, 1,

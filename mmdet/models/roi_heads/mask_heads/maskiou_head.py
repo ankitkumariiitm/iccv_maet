@@ -57,7 +57,7 @@ class MaskIoUHead(nn.Module):
             self.fcs.append(Linear(in_channels, self.fc_out_channels))
 
         self.fc_mask_iou = Linear(self.fc_out_channels, self.num_classes)
-        self.relu = nn.ReLU()
+        self.relu = nn.LeakyReLU()
         self.max_pool = MaxPool2d(2, 2)
         self.loss_iou = build_loss(loss_iou)
 

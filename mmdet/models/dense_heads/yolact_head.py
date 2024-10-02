@@ -79,7 +79,7 @@ class YOLACTHead(AnchorHead):
 
     def _init_layers(self):
         """Initialize layers of the head."""
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.head_convs = nn.ModuleList()
         for i in range(self.num_head_convs):
             chn = self.in_channels if i == 0 else self.feat_channels
@@ -640,7 +640,7 @@ class YOLACTProtonet(nn.Module):
                         -kernel_size,
                         padding=kernel_size // 2)
             protonets.append(layer)
-            protonets.append(nn.ReLU(inplace=True))
+            protonets.append(nn.LeakyReLU(inplace=True))
             in_channels = num_channels if num_channels is not None \
                 else in_channels
         if not self.include_last_relu:

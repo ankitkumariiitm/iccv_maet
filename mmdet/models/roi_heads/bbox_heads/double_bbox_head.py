@@ -53,7 +53,7 @@ class BasicResBlock(nn.Module):
             norm_cfg=norm_cfg,
             act_cfg=None)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def forward(self, x):
         identity = x
@@ -116,7 +116,7 @@ class DoubleConvFCBBoxHead(BBoxHead):
         self.fc_reg = nn.Linear(self.conv_out_channels, out_dim_reg)
 
         self.fc_cls = nn.Linear(self.fc_out_channels, self.num_classes + 1)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def _add_conv_branch(self):
         """Add the fc branch which consists of a sequential of conv layers."""

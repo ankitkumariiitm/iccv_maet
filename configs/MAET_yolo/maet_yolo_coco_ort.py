@@ -60,7 +60,7 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/home/czt/DataSets/coco/'
+data_root = 'data/COCO_MINI/'
 img_norm_cfg = dict(mean=[0, 0, 0], std=[255., 255., 255.], to_rgb=True)
 train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True),

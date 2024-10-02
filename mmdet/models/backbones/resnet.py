@@ -46,7 +46,7 @@ class BasicBlock(nn.Module):
             conv_cfg, planes, planes, 3, padding=1, bias=False)
         self.add_module(self.norm2_name, norm2)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
         self.dilation = dilation
@@ -202,7 +202,7 @@ class Bottleneck(nn.Module):
             bias=False)
         self.add_module(self.norm3_name, norm3)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
         self.downsample = downsample
 
         if self.with_plugins:
@@ -534,7 +534,7 @@ class ResNet(nn.Module):
                     padding=1,
                     bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels // 2)[1],
-                nn.ReLU(inplace=True),
+                nn.LeakyReLU(inplace=True),
                 build_conv_layer(
                     self.conv_cfg,
                     stem_channels // 2,
@@ -544,7 +544,7 @@ class ResNet(nn.Module):
                     padding=1,
                     bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels // 2)[1],
-                nn.ReLU(inplace=True),
+                nn.LeakyReLU(inplace=True),
                 build_conv_layer(
                     self.conv_cfg,
                     stem_channels // 2,
@@ -554,7 +554,7 @@ class ResNet(nn.Module):
                     padding=1,
                     bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels)[1],
-                nn.ReLU(inplace=True))
+                nn.LeakyReLU(inplace=True))
         else:
             self.conv1 = build_conv_layer(
                 self.conv_cfg,
@@ -567,7 +567,7 @@ class ResNet(nn.Module):
             self.norm1_name, norm1 = build_norm_layer(
                 self.norm_cfg, stem_channels, postfix=1)
             self.add_module(self.norm1_name, norm1)
-            self.relu = nn.ReLU(inplace=True)
+            self.relu = nn.LeakyReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
     def _freeze_stages(self):

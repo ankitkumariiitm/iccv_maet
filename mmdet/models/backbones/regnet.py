@@ -216,7 +216,7 @@ class RegNet(ResNet):
         self.norm1_name, norm1 = build_norm_layer(
             self.norm_cfg, base_channels, postfix=1)
         self.add_module(self.norm1_name, norm1)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.LeakyReLU(inplace=True)
 
     def generate_regnet(self,
                         initial_width,
